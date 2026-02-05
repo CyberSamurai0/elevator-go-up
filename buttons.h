@@ -26,5 +26,10 @@
 #define FLOOR_15_BUTTON_GPIO 14
 #define FLOOR_16_BUTTON_GPIO 15
 
+// Get the GPIO pin number for a given floor button.
+uint8_t getGPIOForFloor(uint8_t floor);
+
+// Initialize the GPIO pin for a given floor button as input with pull-up resistor.
+void activateFloorButton(uint8_t floor);
 
 #endif //ELEVATOR_GO_UP_BUTTONS_H

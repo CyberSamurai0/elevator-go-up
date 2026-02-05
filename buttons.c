@@ -1,5 +1,8 @@
 #include "buttons.h"
 
+/**
+ * Get the GPIO pin number for a given floor button.
+ */
 uint8_t getGPIOForFloor(uint8_t floor) {
     switch (floor) {
         case 1: return FLOOR_1_BUTTON_GPIO;
@@ -22,6 +25,9 @@ uint8_t getGPIOForFloor(uint8_t floor) {
     }
 }
 
+/**
+ * Initialize the GPIO pin for a given floor button as input with pull-up resistor.
+ */
 void activateFloorButton(uint8_t floor) {
     uint8_t gpio = getGPIOForFloor(floor);
     if (gpio != -1) {
