@@ -22,7 +22,7 @@ uint8_t getGPIOForFloor(uint8_t floor) {
     }
 }
 
-void enableFloor(uint8_t floor) {
+void activateFloorButton(uint8_t floor) {
     uint8_t gpio = getGPIOForFloor(floor);
     if (gpio != -1) {
         gpio_set_dir(gpio, GPIO_IN);
