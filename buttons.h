@@ -32,4 +32,7 @@ uint8_t getGPIOForFloor(uint8_t floor);
 // Initialize the GPIO pin for a given floor button as input with pull-up resistor.
 void activateFloorButton(uint8_t floor);
 
+// Callback function for button press interrupt
+void onButtonPressed(uint gpio, uint32_t event_mask);
+
 #endif //ELEVATOR_GO_UP_BUTTONS_H

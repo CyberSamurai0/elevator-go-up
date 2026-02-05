@@ -33,5 +33,10 @@ void activateFloorButton(uint8_t floor) {
     if (gpio != -1) {
         gpio_set_dir(gpio, GPIO_IN);
         gpio_pull_up(gpio);
+        gpio_set_irq_enabled_with_callback(gpio, GPIO_IRQ_EDGE_FALL, true, onButtonPressed);
     }
+}
+
+void onButtonPressed(uint gpio, uint32_t event_mask) {
+    // Handle button press event
 }
