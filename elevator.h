@@ -5,13 +5,36 @@
  * Author: Colin Saumure
  *
  */
-#include <stdint.h>
 
 #ifndef ELEVATOR_GO_UP_ELEVATOR_H
 #define ELEVATOR_GO_UP_ELEVATOR_H
 
+/***** Includes *****/
+
+#include <stdint.h>
+#include "motor-controller.h"
+#include "buttons.h"
+
+
+/***** Variable Declarations *****/
+
+// Bitfield for enabled floors
+extern uint16_t enabled_floors;
+
+// Current floor of the elevator on range [1,16]
 extern uint8_t current_floor;
-extern uint16_t desired_floors; // Bitfield for desired floors
-extern uint8_t direction; // 1 for up, -1 for down, 0 for idle
+
+// Bitfield for desired floors
+extern uint16_t desired_floors;
+
+// Direction of elevator movement: 1 for up, -1 for down, 0 for idle
+extern uint8_t direction;
+
+
+/***** Function Prototypes *****/
+
+uint8_t isFloorEnabled(uint8_t floor);
+void enableFloor(uint8_t floor);
+void disableFloor(uint8_t floor);
 
 #endif //ELEVATOR_GO_UP_ELEVATOR_H
