@@ -9,6 +9,9 @@
 #include "hardware/gpio.h"
 #include <stdint.h>
 
+
+/***** Constant Definitions *****/
+
 #define FLOOR_1_BUTTON_GPIO 0
 #define FLOOR_2_BUTTON_GPIO 1
 #define FLOOR_3_BUTTON_GPIO 2
@@ -26,13 +29,16 @@
 #define FLOOR_15_BUTTON_GPIO 14
 #define FLOOR_16_BUTTON_GPIO 15
 
+
+/***** Function Prototypes *****/
+
 // Get the GPIO pin number for a given floor button.
 uint8_t getGPIOForFloor(uint8_t floor);
 
-// Initialize the GPIO pin for a given floor button as input with pull-up resistor.
-void activateFloorButton(uint8_t floor);
+// Get the floor number for a given GPIO pin.
+uint8_t getFloorForGPIO(uint8_t gpio);
 
-// Callback function for button press interrupt
-void onButtonPressed(uint gpio, uint32_t event_mask);
+// Initialize the GPIO pin for a given floor button as input with pull-up resistor.
+void initFloorButton(uint8_t floor, gpio_irq_callback_t callback);
 
 #endif //ELEVATOR_GO_UP_BUTTONS_H

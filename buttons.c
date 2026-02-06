@@ -53,15 +53,11 @@ uint8_t getFloorForGPIO(uint8_t gpio) {
 /**
  * Initialize the GPIO pin for a given floor button as input with pull-up resistor.
  */
-void activateFloorButton(uint8_t floor) {
+void initFloorButton(uint8_t floor, gpio_irq_callback_t callback) {
     uint8_t gpio = getGPIOForFloor(floor);
     if (gpio != -1) {
         gpio_set_dir(gpio, GPIO_IN);
         gpio_pull_up(gpio);
-        gpio_set_irq_enabled_with_callback(gpio, GPIO_IRQ_EDGE_FALL, true, onButtonPressed);
+        gpio_set_irq_enabled_with_callback(gpio, GPIO_IRQ_EDGE_FALL, true, callback);
     }
-}
-
-void onButtonPressed(uint gpio, uint32_t event_mask) {
-    // Handle button press event
 }
