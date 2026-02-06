@@ -1,4 +1,8 @@
 /**
+ * buttons.h
+ *
+ * Manages elevator button GPIOs.
+ * Author: Colin Saumure
  *
  */
 

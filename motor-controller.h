@@ -1,3 +1,11 @@
+/**
+ * motor-controller.h
+ *
+ * Manages motor control for elevator movement.
+ * Author: Colin Saumure
+ *
+ */
+
 #ifndef ELEVATOR_GO_UP_MOTOR_CONTROLLER_H
 #define ELEVATOR_GO_UP_MOTOR_CONTROLLER_H
 
