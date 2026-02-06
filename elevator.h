@@ -16,6 +16,9 @@
 #include "buttons.h"
 
 
+/***** Constant Definitions *****/
+#define STEPS_BETWEEN_FLOORS 200 // Number of motor steps between floors
+
 /***** Variable Declarations *****/
 
 // Bitfield for enabled floors
