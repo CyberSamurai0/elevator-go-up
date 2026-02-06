@@ -1,5 +1,8 @@
+/***** Include Header *****/
 #include "motor-controller.h"
 
+
+/***** Function Definitions *****/
 
 // Initialize the motor controller GPIO pins and PWM for step control.
 void init_motor(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin) {
