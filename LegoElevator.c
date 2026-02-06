@@ -24,3 +24,28 @@ int main() {
         sleep_ms(1000);
     }
 }
+
+// Let's walk through runtime
+// Turn on the onboard LED on Pico W units
+// Initialize the elevator system with motor pins and five floors
+//      Initialize the motor controller
+//          Set motor enable, step, and direction pins
+//          Set motor to disabled state initially
+//          Set initial direction to forward - this does not correspond to elevator.c direction
+//          Configure step pin for PWM control
+//      Set enabled floors bitfield
+//      Set default values for current floor, desired floors, and direction
+//      Initialize floor buttons for enabled floors
+//          Bind a callback IRQ to each button GPIO
+//          Callback adds the floor to desired floors when pressed
+// Enter main loop
+//      If idle, check desired floors and set direction accordingly
+//      If active (direction set), check if we're at the next desired floor
+//          If at desired floor
+//              Stop motor, update current floor, remove from desired floors
+//              Linger at current floor for a while
+//              Pick next desired floor based on direction
+//              If no more desired floors in current direction, set direction to idle (which will check opposite direction)
+//          If not at desired floor, continue moving in set direction
+//      Desired floors is a bitfield, but there should still be a single target floor at any time
+//      Pushing button while moving to target floor will not change target floor until after complete
