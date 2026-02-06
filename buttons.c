@@ -1,8 +1,10 @@
+/***** Include Header *****/
 #include "buttons.h"
 
-/**
- * Get the GPIO pin number for a given floor button.
- */
+
+/***** Function Definitions *****/
+
+// Get the GPIO pin number for a given floor button.
 uint8_t getGPIOForFloor(uint8_t floor) {
     switch (floor) {
         case 1: return FLOOR_1_BUTTON_GPIO;
@@ -25,9 +27,7 @@ uint8_t getGPIOForFloor(uint8_t floor) {
     }
 }
 
-/**
- * Get the floor number for a given GPIO pin.
- */
+// Get the floor number for a given GPIO pin.
 uint8_t getFloorForGPIO(uint8_t gpio) {
     switch (gpio) {
         case FLOOR_1_BUTTON_GPIO: return 1;
@@ -50,9 +50,7 @@ uint8_t getFloorForGPIO(uint8_t gpio) {
     }
 }
 
-/**
- * Initialize the GPIO pin for a given floor button as input with pull-up resistor.
- */
+// Initialize the GPIO pin for a given floor button as input with pull-up resistor.
 void initFloorButton(uint8_t floor, gpio_irq_callback_t callback) {
     uint8_t gpio = getGPIOForFloor(floor);
     if (gpio != -1) {
