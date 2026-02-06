@@ -16,6 +16,9 @@ void enableFloor(uint8_t floor);
 void disableFloor(uint8_t floor);
 void addDesiredFloor(uint8_t floor);
 void removeDesiredFloor(uint8_t floor);
+void onFloorButtonPressed(uint gpio, uint32_t event_mask);
+
+
 /***** Function Definitions *****/
 
 // Initialize the elevator system with motor pins and enabled floors
@@ -63,4 +66,12 @@ void addDesiredFloor(uint8_t floor) {
  */
 void removeDesiredFloor(uint8_t floor) {
     desired_floors &= ~(1 << (floor - 1));
+}
+
+// Callback for when a floor button is pressed
+void onFloorButtonPressed(uint gpio, uint32_t event_mask) {
+    uint8_t floor = getFloorForGPIO(gpio);
+    if (floor != (uint8_t)(-1)) {
+        addDesiredFloor(floor);
+    }
 }

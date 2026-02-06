@@ -42,4 +42,6 @@ void removeDesiredFloor(uint8_t floor);
 
 void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors);
 
+void onFloorButtonPressed(uint gpio, uint32_t event_mask);
+
 #endif //ELEVATOR_GO_UP_ELEVATOR_H
