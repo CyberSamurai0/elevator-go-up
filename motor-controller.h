@@ -25,6 +25,6 @@
 /***** Function Prototypes *****/
 
 // Initialize the motor controller GPIO pins and PWM for step control.
-void init_motor(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin);
+void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin);
 
 #endif //ELEVATOR_GO_UP_MOTOR_CONTROLLER_H
