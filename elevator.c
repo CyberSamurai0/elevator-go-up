@@ -11,6 +11,9 @@ uint8_t direction;
 
 /***** Function Prototypes *****/
 
+// Initialize the elevator system
+void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors);
+
 // Checks if a floor is enabled via bitfield
 uint8_t isFloorEnabled(uint8_t floor);
 
@@ -32,6 +35,19 @@ void addDesiredFloor(uint8_t floor);
  */
 void removeDesiredFloor(uint8_t floor);
 /***** Function Definitions *****/
+
+void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors) {
+    init_motor(en_pin, step_pin, dir_pin); // Initialize motor controller
+    enabled_floors = floors; // Set enabled floors
+    current_floor = 1; // Start at first floor
+    desired_floors = 0; // No desired floors initially
+    direction = 0; // Default to idle
+
+    // Iterate over buttons and initialize those that are enabled
+    for (uint8_t floor = 1; floor <= 16; floor++) {
+        if (isFloorEnabled(floor)) initFloorButton(floor, onFloorButtonPressed);
+    }
+}
 
 // Checks if a floor is enabled via bitfield
 uint8_t isFloorEnabled(uint8_t floor) {
