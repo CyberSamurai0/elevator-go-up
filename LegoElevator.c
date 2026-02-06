@@ -17,6 +17,8 @@ int main() {
     // Example to turn on the Pico W LED
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 
+    initElevatorSystem(2, 3, 4, 0b11111); // Enable five floors for testing
+
     while (true) {
         printf("Hello, world!\n");
         sleep_ms(1000);
