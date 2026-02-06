@@ -11,11 +11,8 @@ void init_motor(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin) {
     gpio_set_dir(dir_pin, GPIO_OUT); // Configure as output
     gpio_put(dir_pin, 0); // Set initial direction to forward
 
-    /**
-     * Initialize the Step pin for PWM
-     */
-    gpio_set_dir(step_pin, GPIO_OUT); // Step Pin
-    gpio_set_function(step_pin, GPIO_FUNC_PWM); // Step Pin as PWM
+    /***** Step Pin *****/
+    gpio_set_function(step_pin, GPIO_FUNC_PWM); // Configure step pin for PWM
 
     uint slice_num = pwm_gpio_to_slice_num(step_pin); // Get PWM slice number
     uint channel = pwm_gpio_to_channel(step_pin); // Get PWM channel
