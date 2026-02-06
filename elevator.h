@@ -37,4 +37,7 @@ uint8_t isFloorEnabled(uint8_t floor);
 void enableFloor(uint8_t floor);
 void disableFloor(uint8_t floor);
 
+void addDesiredFloor(uint8_t floor);
+void removeDesiredFloor(uint8_t floor);
+
 #endif //ELEVATOR_GO_UP_ELEVATOR_H
