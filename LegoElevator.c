@@ -17,11 +17,14 @@ int main() {
     // Example to turn on the Pico W LED
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 
+    printf("Initializing elevator system...\n");
+
     initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
 
+    printf("Main Loop!\n");
     while (true) {
-        printf("Hello, world!\n");
         sleep_ms(1000);
+        printf(".");
     }
 }
 
