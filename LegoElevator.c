@@ -49,6 +49,13 @@ int main() {
         // Disallows pushing the button for the floor you're currently on
         if (isFloorDesired(current_floor) && direction == 0) removeDesiredFloor(current_floor);
 
+        // Check if any floors are desired
+        // If not, idle
+        // If so, check if in current direction
+            // If so, set new target floor
+            // If not, set new direction
+        // If no direction, pick one!
+
 
         sleep_ms(1000);
     }
