@@ -16,6 +16,7 @@ void enableFloor(uint8_t floor);
 void disableFloor(uint8_t floor);
 void addDesiredFloor(uint8_t floor);
 void removeDesiredFloor(uint8_t floor);
+uint8_t isFloorDesired(uint8_t floor);
 void onFloorButtonPressed(uint gpio, uint32_t event_mask);
 
 
@@ -67,6 +68,11 @@ void addDesiredFloor(uint8_t floor) {
  */
 void removeDesiredFloor(uint8_t floor) {
     desired_floors &= ~(1 << (floor - 1));
+}
+
+// Checks if a floor is set in the desired_floors bitfield
+uint8_t isFloorDesired(uint8_t floor) {
+    return desired_floors & (1 << (floor - 1));
 }
 
 // Callback for when a floor button is pressed

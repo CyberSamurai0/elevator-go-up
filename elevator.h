@@ -42,6 +42,7 @@ void disableFloor(uint8_t floor);
 
 void addDesiredFloor(uint8_t floor);
 void removeDesiredFloor(uint8_t floor);
+uint8_t isFloorDesired(uint8_t floor);
 
 void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors);
 
