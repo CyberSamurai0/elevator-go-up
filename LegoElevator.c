@@ -4,6 +4,18 @@
 
 #include "elevator.h"
 
+void print_uint16_binary(uint16_t value) {
+    // Iterate from the most significant bit (15) down to the least significant bit (0)
+    for (int i = 15; i >= 0; i--) {
+        // Use a bitmask to check the value of the i-th bit
+        if ((value >> i) & 1) {
+            printf("1");
+        } else {
+            printf("0");
+        }
+    }
+    printf("\n"); // Print a newline character at the end
+}
 
 int main() {
     stdio_init_all();
@@ -31,7 +43,8 @@ int main() {
     printf("Main Loop!\n");
     while (true) {
         sleep_ms(1000);
-        printf(".");
+        printf("Current floor: %d, Desired floors bitfield: ", current_floor);
+        print_uint16_binary(desired_floors);
     }
 }
 
