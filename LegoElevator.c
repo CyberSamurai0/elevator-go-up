@@ -45,7 +45,10 @@ int main() {
         printf("Current floor: %d, Desired floors bitfield: ", current_floor);
         print_uint16_binary(desired_floors);
 
-        if (isFloorDesired(current_floor)) removeDesiredFloor(current_floor);
+        // If we're not moving and we're on the desired floor, clear it
+        // Disallows pushing the button for the floor you're currently on
+        if (isFloorDesired(current_floor) && direction == 0) removeDesiredFloor(current_floor);
+
 
         sleep_ms(1000);
     }
