@@ -30,9 +30,16 @@ extern uint8_t current_floor;
 // Bitfield for desired floors
 extern uint16_t desired_floors;
 
-// Direction of elevator movement: 1 for up, -1 for down, 0 for idle
+// Direction of elevator movement
+// 110 = Direction is Up & Moving
+// 101 = Direction is Down & Moving
+// 010 = Direction is Up
+// 001 = Direction is Down
+// 000 = Idle
 extern uint8_t direction;
 
+// Tracks the floor we are actively moving to. Should be 0 if direction is idle.
+uint8_t target_floor;
 
 /***** Function Prototypes *****/
 
