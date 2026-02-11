@@ -72,6 +72,7 @@ void removeDesiredFloor(uint8_t floor) {
 // Callback for when a floor button is pressed
 void onFloorButtonPressed(uint gpio, uint32_t event_mask) {
     uint8_t floor = getFloorForGPIO(gpio);
+    printf("Floor %d Pressed\n", floor);
     if (floor != (uint8_t)(-1)) {
         addDesiredFloor(floor);
     }
