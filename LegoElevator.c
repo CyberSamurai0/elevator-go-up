@@ -42,9 +42,12 @@ int main() {
 
     printf("Main Loop!\n");
     while (true) {
-        sleep_ms(1000);
         printf("Current floor: %d, Desired floors bitfield: ", current_floor);
         print_uint16_binary(desired_floors);
+
+        if (isFloorDesired(current_floor)) removeDesiredFloor(current_floor);
+
+        sleep_ms(1000);
     }
 }
 
