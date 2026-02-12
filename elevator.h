@@ -39,7 +39,7 @@ extern uint16_t desired_floors;
 extern uint8_t direction;
 
 // Tracks the floor we are actively moving to. Should be 0 if direction is idle.
-uint8_t target_floor;
+extern uint8_t target_floor;
 
 /***** Function Prototypes *****/
 
