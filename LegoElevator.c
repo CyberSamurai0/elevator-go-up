@@ -42,6 +42,7 @@ int main() {
 
     printf("Main Loop!\n");
     while (true) {
+
         printf("Current floor: %d, Desired floors bitfield: ", current_floor);
         print_uint16_binary(desired_floors);
 
@@ -85,3 +86,4 @@ int main() {
 //          If not at desired floor, continue moving in set direction
 //      Desired floors is a bitfield, but there should still be a single target floor at any time
 //      Pushing button while moving to target floor will not change target floor until after complete
+
