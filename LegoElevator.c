@@ -61,7 +61,7 @@ int main() {
     printf("===== Elevator System v%c.%c.%c =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
 
-    printf("[INIT] Initializing elevator system...\n");
+    printf("[INIT] Initializing elevator system\n");
 
     initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
 
