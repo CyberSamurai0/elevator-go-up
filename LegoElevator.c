@@ -89,6 +89,20 @@ int main() {
         // Disallows pushing the button for the floor you're currently on
         if (isFloorDesired(current_floor) && direction == 0) removeDesiredFloor(current_floor);
 
+        if (desired_floors == 0) {
+            // If no more desired floors, idle
+            if (direction != 0) {
+                printf("All floors served, idling\n");
+                direction = 0; // No desired floors, set to idle
+            }
+        } else if (direction == 0) {
+            // If there are desired floors but we're idle, pick a direction
+
+        } else {
+            // If there are desired floors, check if they're in our current direction
+            
+        }
+
         // Check if any floors are desired
         // If not, idle
         // If so, check if in current direction
