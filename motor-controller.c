@@ -24,4 +24,6 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     pwm_set_wrap(slice_num, top); // Set the PWM wrap value
     pwm_set_chan_level(slice_num, channel, 0); // Start with 0%
     pwm_set_enabled(slice_num, true); // Enable the PWM slice
+
+    printf("[INIT] Motor controller initialized\n");
 }
