@@ -8,6 +8,8 @@
 #define VERSION_MINOR '1'
 #define VERSION_PATCH '3'
 
+#define BOOT_DEBUG 1
+
 void print_uint16_binary(uint16_t value) {
     // Iterate from the most significant bit (15) down to the least significant bit (0)
     for (int i = 15; i >= 0; i--) {
@@ -30,7 +32,11 @@ int main() {
         return -1;
     }
 
+    #if BOOT_DEBUG
+    // Wait for USB serial connection before proceeding
     while (!stdio_usb_connected()) {
+        // Check for a connection every tenth of a second
+        // Blink the LED every half second
         for (uint8_t i=0; i<10; i++) {
             sleep_ms(100);
             if (stdio_usb_connected()) break;
@@ -38,6 +44,15 @@ int main() {
             if (i == 5) cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
         }
     }
+    #else
+    // Blink LED for four seconds before beginning
+    for (uint8_t i=0; i<4; i++) {
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+        sleep_ms(500);
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
+        sleep_ms(500);
+    }
+    #endif
 
     // Turn on the LED to indicate we're past the boot stage
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
