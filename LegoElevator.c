@@ -57,8 +57,10 @@ int main() {
             // If not, set new direction
         // If no direction, pick one!
 
-
-        sleep_ms(1000);
+        gpio_put(17, 1);
+        sleep_ms(500);
+        gpio_put(17, 0);
+        sleep_ms(500);
     }
 }
 
