@@ -25,7 +25,8 @@ void onFloorButtonPressed(uint gpio, uint32_t event_mask);
 
 // Initialize the elevator system with motor pins and enabled floors
 void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors) {
-    printf("Initializing motor controller...\n");
+    printf("[INIT] Initializing motor controller...\n");
+    printf("[INIT] EN: GPIO%d, STEP: GPIO %d, DIR: GPIO %d\n", en_pin, step_pin, dir_pin);
     init_motor(en_pin, step_pin, dir_pin); // Initialize motor controller
     enabled_floors = floors; // Set enabled floors
     current_floor = 1; // Start at first floor
@@ -34,7 +35,10 @@ void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint1
 
     // Iterate over buttons and initialize those that are enabled
     for (uint8_t floor = 1; floor <= 16; floor++) {
-        if (isFloorEnabled(floor)) initFloorButton(floor, onFloorButtonPressed);
+        if (isFloorEnabled(floor)) {
+            printf("[INIT] Enabling floor %d\n", floor);
+            initFloorButton(floor, onFloorButtonPressed);
+        }
     }
 }
 
