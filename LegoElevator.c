@@ -98,6 +98,20 @@ int main() {
         } else if (direction == 0) {
             // If there are desired floors but we're idle, pick a direction
 
+            // Check if there are desired floors above the current floor
+            // (1 << (current_floor + 1)) targets the bit above the current floor
+            // 1<<3 = 8 = 0b01000
+            // mask - 1 = 0b00111
+            // ~(mask - 1) = 0b11000, which gives us all floors above the current floor
+            if (desired_floors & (~((1 << (current_floor + 1)) - 1))) {
+                // Desired floors exist above current floor
+                direction = (direction & 0b100) | 0b010; // Set direction to up (010), preserve moving state
+                print("Setting direction to UP\n");
+            } else {
+                // Desired floors exist only below current floor
+                direction = (direction & 0b100) | 0b001; // Set direction to down (001), preserve moving state
+                print("Setting direction to DOWN\n");
+            }
         } else {
             // If there are desired floors, check if they're in our current direction
             
