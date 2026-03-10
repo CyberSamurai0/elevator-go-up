@@ -45,7 +45,7 @@ int main() {
         }
     }
     #else
-    // Blink LED for four seconds before beginning
+    // Blink LED for four seconds before proceeding
     for (uint8_t i=0; i<4; i++) {
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
         sleep_ms(500);
