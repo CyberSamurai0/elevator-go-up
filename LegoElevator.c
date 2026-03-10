@@ -68,7 +68,19 @@ int main() {
     printf("[INIT] Initialization completed\n\n");
     while (true) {
 
-        printf("Current floor: %d, Desired floors bitfield: ", current_floor);
+        if (direction & 0b110) {
+            printf("UP -> F %d", target_floor);
+        } else if (direction & 0b101) {
+            printf("DN -> F %d", target_floor);
+        } else if (direction & 0b010) {
+            printf("UP at F %d", current_floor);
+        } else if (direction & 0b001) {
+            printf("DN at F %d", current_floor);
+        } else {
+            printf("      F %d", current_floor);
+        }
+
+        printf("\t\t\tDesired: ");
         print_uint16_binary(desired_floors);
 
         // If we're not moving and we're on the desired floor, clear it
