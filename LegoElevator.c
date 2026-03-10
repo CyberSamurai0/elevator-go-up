@@ -39,14 +39,6 @@ int main() {
         }
     }
 
-    // Blink LED for four seconds before beginning
-    for (uint8_t i=0; i<4; i++) {
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
-        sleep_ms(500);
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
-        sleep_ms(500);
-    }
-
     printf("===== Elevator System =====\n");
     printf("v%c.%c.%c\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
