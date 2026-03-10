@@ -65,7 +65,7 @@ int main() {
 
     initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
 
-    printf("[INIT] Boot sequence completed\n\n");
+    printf("[INIT] Initialization completed\n\n");
     while (true) {
 
         printf("Current floor: %d, Desired floors bitfield: ", current_floor);
