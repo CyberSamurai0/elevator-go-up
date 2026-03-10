@@ -68,6 +68,7 @@ int main() {
     printf("[INIT] Initialization completed\n\n");
     while (true) {
 
+        // Print current state for debugging
         if (direction & 0b110) {
             printf("UP -> F %d", target_floor);
         } else if (direction & 0b101) {
@@ -80,6 +81,7 @@ int main() {
             printf("      F %d", current_floor);
         }
 
+        // Print desired floors bitfield
         printf("\t\tDesired: ");
         print_uint16_binary(desired_floors);
 
