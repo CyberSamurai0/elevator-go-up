@@ -43,6 +43,8 @@ extern uint8_t target_floor;
 
 /***** Function Prototypes *****/
 
+void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors);
+
 uint8_t isFloorEnabled(uint8_t floor);
 void enableFloor(uint8_t floor);
 void disableFloor(uint8_t floor);
@@ -51,7 +53,6 @@ void addDesiredFloor(uint8_t floor);
 void removeDesiredFloor(uint8_t floor);
 uint8_t isFloorDesired(uint8_t floor);
 
-void initElevatorSystem(uint8_t en_pin, uint8_t step_pin, uint8_t dir_pin, uint16_t floors);
 
 void onFloorButtonPressed(uint gpio, uint32_t event_mask);
 
