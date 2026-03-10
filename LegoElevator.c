@@ -39,10 +39,12 @@ int main() {
         }
     }
 
-    printf("===== Elevator System =====\n");
-    printf("v%c.%c.%c\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
-
+    // Turn on the LED to indicate we're past the boot stage
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+
+    // Print version info
+    printf("===== Elevator System v%c.%c.%c =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+
 
     printf("Initializing elevator system...\n");
 
