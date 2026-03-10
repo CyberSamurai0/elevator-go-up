@@ -80,7 +80,7 @@ int main() {
             printf("      F %d", current_floor);
         }
 
-        printf("\t\t\tDesired: ");
+        printf("\t\tDesired: ");
         print_uint16_binary(desired_floors);
 
         // If we're not moving and we're on the desired floor, clear it
