@@ -4,6 +4,10 @@
 
 #include "elevator.h"
 
+#define VERSION_MAJOR '0'
+#define VERSION_MINOR '1'
+#define VERSION_PATCH '3'
+
 void print_uint16_binary(uint16_t value) {
     // Iterate from the most significant bit (15) down to the least significant bit (0)
     for (int i = 15; i >= 0; i--) {
@@ -33,6 +37,9 @@ int main() {
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
         sleep_ms(500);
     }
+
+    printf("===== Elevator System =====\n");
+    printf("v%c.%c.%c\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 
