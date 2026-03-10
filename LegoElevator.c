@@ -30,6 +30,15 @@ int main() {
         return -1;
     }
 
+    while (!stdio_usb_connected()) {
+        for (uint8_t i=0; i<10; i++) {
+            sleep_ms(100);
+            if (stdio_usb_connected()) break;
+            if (i == 0) cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+            if (i == 5) cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
+        }
+    }
+
     // Blink LED for four seconds before beginning
     for (uint8_t i=0; i<4; i++) {
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
