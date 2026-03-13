@@ -113,7 +113,15 @@ int main() {
                 printf("Setting direction to DOWN\n");
             }
         } else {
-            // If there are desired floors, check if they're in our current direction
+            // We are moving and we're supposed to be moving!
+            
+            //      If active (direction set), check if we're at the next desired floor
+            //          If at desired floor
+            //              Stop motor, update current floor, remove from desired floors
+            //              Linger at current floor for a while
+            //              Pick next desired floor based on direction
+            //              If no more desired floors in current direction, set direction to idle (which will check opposite direction)
+            //          If not at desired floor, continue moving in set direction
             
         }
 
