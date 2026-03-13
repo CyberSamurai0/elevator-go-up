@@ -106,11 +106,11 @@ int main() {
             if (desired_floors & (~((1 << (current_floor + 1)) - 1))) {
                 // Desired floors exist above current floor
                 direction = (direction & 0b100) | 0b010; // Set direction to up (010), preserve moving state
-                print("Setting direction to UP\n");
+                printf("Setting direction to UP\n");
             } else {
                 // Desired floors exist only below current floor
                 direction = (direction & 0b100) | 0b001; // Set direction to down (001), preserve moving state
-                print("Setting direction to DOWN\n");
+                printf("Setting direction to DOWN\n");
             }
         } else {
             // If there are desired floors, check if they're in our current direction
