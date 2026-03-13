@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
+#include "hardware/gpio.h"
 
 #include "elevator.h"
 
 #define VERSION_MAJOR '0'
 #define VERSION_MINOR '1'
-#define VERSION_PATCH '3'
+#define VERSION_PATCH '4'
 
 #define BOOT_DEBUG 1
 
@@ -59,10 +60,17 @@ int main() {
 
     // Print version info
     printf("===== Elevator System v%c.%c.%c =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    printf("Why are we not getting past this point\n");
+    printf("Do you even care");
 
 
     printf("[INIT] Initializing elevator system\n");
+    
+    gpio_set_dir(20, GPIO_OUT); // Configure as output
+    gpio_put(20, 1);
+    printf("GPIO 20 is on");
 
+    /*
     initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
 
     printf("[INIT] Initialization completed\n\n");
@@ -136,7 +144,7 @@ int main() {
         sleep_ms(500);
         gpio_put(17, 0);
         sleep_ms(500);
-    }
+    }*/
 }
 
 // Let's walk through runtime
