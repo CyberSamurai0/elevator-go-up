@@ -7,10 +7,12 @@
 // Initialize the motor controller GPIO pins and PWM for step control.
 void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     // Initialize the Enable pin
+    gpio_init(ena_pin);
     gpio_set_dir(ena_pin, GPIO_OUT); // Configure as output
     gpio_put(ena_pin, 1); // Disable motor initially TODO not sure which state is disabled
 
     // Initialize the Direction pin
+    gpio_init(dir_pin);
     gpio_set_dir(dir_pin, GPIO_OUT); // Configure as output
     gpio_put(dir_pin, 0); // Set initial direction to forward
 
