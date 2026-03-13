@@ -60,17 +60,10 @@ int main() {
 
     // Print version info
     printf("===== Elevator System v%c.%c.%c =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
-    printf("Why are we not getting past this point\n");
-    printf("Do you even care");
 
 
     printf("[INIT] Initializing elevator system\n");
-    
-    gpio_set_dir(20, GPIO_OUT); // Configure as output
-    gpio_put(20, 1);
-    printf("GPIO 20 is on");
 
-    /*
     initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
 
     printf("[INIT] Initialization completed\n\n");
@@ -139,12 +132,7 @@ int main() {
             // If so, set new target floor
             // If not, set new direction
         // If no direction, pick one!
-
-        gpio_put(17, 1);
-        sleep_ms(500);
-        gpio_put(17, 0);
-        sleep_ms(500);
-    }*/
+    }
 }
 
 // Let's walk through runtime
