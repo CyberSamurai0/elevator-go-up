@@ -132,6 +132,8 @@ int main() {
             // If so, set new target floor
             // If not, set new direction
         // If no direction, pick one!
+
+        sleep_ms(1000);
     }
 }
 
