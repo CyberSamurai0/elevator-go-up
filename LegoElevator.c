@@ -11,6 +11,8 @@
 
 #define BOOT_DEBUG 1
 
+#define MOTOR_UNIT_TEST 1
+
 void print_uint16_binary(uint16_t value) {
     // Iterate from the most significant bit (15) down to the least significant bit (0)
     for (int i = 15; i >= 0; i--) {
@@ -67,6 +69,24 @@ int main() {
     initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
 
     printf("[INIT] Initialization completed\n\n");
+
+    #if MOTOR_UNIT_TEST
+    printf("[TEST] Testing motor operations\n\n");
+
+    // Lock and unlock motor 3x
+    printf("[TEST] Motor enable pin test:\n");
+    for (uint8_t i=0; i<3; i++) {
+        enable_motor(17, 0);
+        printf("[TEST] Motor disabled\n");
+        sleep_ms(1000);
+
+        enable_motor(17, 1);
+        printf("[TEST] Motor enabled\n");
+        sleep_ms(1000);
+    }
+
+    #endif
+
     while (true) {
 
         // Print current state for debugging
