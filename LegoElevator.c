@@ -9,6 +9,10 @@
 #define VERSION_MINOR '1'
 #define VERSION_PATCH '4'
 
+#define MOTOR_ENA_PIN 17
+#define MOTOR_DIR_PIN 18
+#define MOTOR_PUL_PIN 19
+
 #define BOOT_DEBUG 1
 
 #define MOTOR_UNIT_TEST 1
@@ -66,7 +70,7 @@ int main() {
 
     printf("[INIT] Initializing elevator system\n");
 
-    initElevatorSystem(17, 18, 19, 0b11111); // Enable five floors for testing
+    initElevatorSystem(MOTOR_ENA_PIN, MOTOR_DIR_PIN, MOTOR_PUL_PIN, 0b11111); // Enable five floors for testing
 
     printf("[INIT] Initialization completed\n\n");
 
@@ -83,6 +87,12 @@ int main() {
         enable_motor(17, 1);
         printf("[TEST] Motor enabled\n");
         sleep_ms(1000);
+    }
+
+    // Spin back and forth 3x
+    printf("[TEST] Motor revolution test:\n");
+    for (uint8_t i=0; i<3; i++) {
+        set_motor_dir(18)
     }
 
     #endif
