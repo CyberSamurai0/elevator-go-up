@@ -29,11 +29,11 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     printf("[INIT] Motor controller initialized\n");
 }
 
-void set_enabled(uint8_t ena_pin, uint8_t on) {
+void enable_motor(uint8_t ena_pin, uint8_t on) {
     // Enable pin is designed as fail closed, so we need logical inverse
     gpio_put(ena_pin, !on);
 }
 
-void set_dir(uint8_t dir_pin, uint8_t clockwise) {
+void set_motor_dir(uint8_t dir_pin, uint8_t clockwise) {
     gpio_put(dir_pin, clockwise); // TODO determine if CW is default direction
 }

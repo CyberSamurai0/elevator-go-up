@@ -27,7 +27,7 @@
 // Initialize the motor controller GPIO pins and PWM for step control.
 void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin);
 
-void set_enabled(uint8_t ena_pin, uint8_t on);
-void set_dir(uint8_t dir_pin, uint8_t clockwise);
+void enable_motor(uint8_t ena_pin, uint8_t on);
+void set_motor_dir(uint8_t dir_pin, uint8_t clockwise);
 
 #endif //ELEVATOR_GO_UP_MOTOR_CONTROLLER_H
