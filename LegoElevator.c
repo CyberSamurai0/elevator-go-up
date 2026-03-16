@@ -33,6 +33,10 @@ void print_uint16_binary(uint16_t value) {
 int main() {
     stdio_init_all();
 
+    gpio_init(MOTOR_ENA_PIN);
+    gpio_set_dir(MOTOR_ENA_PIN, 1);
+    gpio_put(MOTOR_ENA_PIN, 1); // Disable motor initially
+
     // Initialise the Wi-Fi chip
     if (cyw43_arch_init()) {
         printf("Wi-Fi init failed\n");
