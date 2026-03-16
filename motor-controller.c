@@ -41,3 +41,18 @@ void enable_motor(uint8_t ena_pin, uint8_t on) {
 void set_motor_dir(uint8_t dir_pin, uint8_t clockwise) {
     gpio_put(dir_pin, clockwise); // TODO determine if CW is default direction
 }
+
+void spin_motor(uint8_t pul_pin) {
+    uint slice_num = pwm_gpio_to_slice_num(pul_pin); // Get PWM slice number
+    uint channel = pwm_gpio_to_channel(pul_pin); // Get PWM channel
+    pwm_set_counter(slice_num, 1999u);
+
+    pwm_set_chan_level(slice_num, channel, 1000u);
+}
+
+void stop_spin_motor(uint8_t pul_pin) {
+    uint slice_num = pwm_gpio_to_slice_num(pul_pin); // Get PWM slice number
+    uint channel = pwm_gpio_to_channel(pul_pin); // Get PWM channel
+
+    pwm_set_chan_level(slice_num, channel, 0);
+}

@@ -30,4 +30,7 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin);
 void enable_motor(uint8_t ena_pin, uint8_t on);
 void set_motor_dir(uint8_t dir_pin, uint8_t clockwise);
 
+void spin_motor(uint8_t pul_pin);
+void stop_spin_motor(uint8_t pul_pin);
+
 #endif //ELEVATOR_GO_UP_MOTOR_CONTROLLER_H
