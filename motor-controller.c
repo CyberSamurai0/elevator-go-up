@@ -39,7 +39,8 @@ void enable_motor(uint8_t ena_pin, uint8_t on) {
 }
 
 void set_motor_dir(uint8_t dir_pin, uint8_t clockwise) {
-    gpio_put(dir_pin, clockwise); // TODO determine if CW is default direction
+    // This is accurate - CW is high, CCW is low
+    gpio_put(dir_pin, clockwise);
 }
 
 void spin_motor(uint8_t pul_pin) {
