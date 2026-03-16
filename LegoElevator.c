@@ -92,7 +92,25 @@ int main() {
     // Spin back and forth 3x
     printf("[TEST] Motor revolution test:\n");
     for (uint8_t i=0; i<3; i++) {
-        set_motor_dir(18)
+        // Clockwise for one revolution
+        set_motor_dir(MOTOR_DIR_PIN, 1);
+        spin_motor(MOTOR_PUL_PIN);
+        printf("[TEST] Spin Clockwise for 1s");
+        sleep_ms(1000);
+
+        stop_spin_motor(MOTOR_PUL_PIN);
+        printf("[TEST] Stop spin 0.5s");
+        sleep_ms(500);
+
+        // Counterclockwise for one revolution
+        set_motor_dir(MOTOR_DIR_PIN, 0);
+        spin_motor(MOTOR_PUL_PIN);
+        printf("[TEST] Spin Clockwise for 1s");
+        sleep_ms(1000);
+
+        stop_spin_motor(MOTOR_PUL_PIN);
+        printf("[TEST] Stop spin 0.5s");
+        sleep_ms(500);
     }
 
     #endif
