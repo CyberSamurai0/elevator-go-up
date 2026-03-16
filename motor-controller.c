@@ -21,9 +21,13 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     uint slice_num = pwm_gpio_to_slice_num(pul_pin); // Get PWM slice number
     uint channel = pwm_gpio_to_channel(pul_pin); // Get PWM channel
 
-    uint16_t top = 255; // Set PWM top value for resolution
+    uint16_t top = 1999; // Set PWM top value for resolution
     pwm_set_wrap(slice_num, top); // Set the PWM wrap value
     pwm_set_chan_level(slice_num, channel, 0); // Start with 0%
+    pwm_set_clkdiv(slice_num, 250.0f); // 125 MHz / 250 / 2000 = 250 Hz step rate
+
+    pwm_set_counter(slice_num, top);
+    
     pwm_set_enabled(slice_num, true); // Enable the PWM slice
 
     printf("[INIT] Motor controller initialized\n");
