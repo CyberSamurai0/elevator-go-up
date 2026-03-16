@@ -9,7 +9,7 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     // Initialize the Enable pin
     gpio_init(ena_pin);
     gpio_set_dir(ena_pin, GPIO_OUT); // Configure as output
-    gpio_put(ena_pin, 1); // Disable motor initially TODO not sure which state is disabled
+    gpio_put(ena_pin, 0); // Enable (lock) motor initially
 
     // Initialize the Direction pin
     gpio_init(dir_pin);
