@@ -1,6 +1,34 @@
 /***** Include Header *****/
 #include "motor-controller.h"
 
+/***** Static Variables *****/
+static volatile uint32_t _steps_remaining = 0;
+static uint8_t _pul_pin_irq = 0;
+static motor_complete_callback_t _on_complete = NULL;
+
+// Interrupt handler for PWM Wrap
+static void pwm_wrap_isr(void) {
+    uint slice_num = pwm_gpio_to_slice_num(_pul_pin_irq);
+    
+    // Clear IRQ flag
+    pwm_clear_irq(slice_num);
+
+    // If the interrupt gets called but no more steps
+    if (_steps_remaining == 0) return;
+
+    // Decrement remaining steps
+    _steps_remaining--;
+
+    if (_steps_remaining == 0) {
+        // Return to 0% duty cycle and disable IRQ
+        pwm_set_chan_level(slice_num, pwm_gpio_to_channel(_pul_pin_irq), 0);
+        pwm_set_irq_enabled(slice_num, false);
+
+        // If a callback is provided, invoke it
+        if (_on_complete) _on_complete();
+    }
+}
+
 /***** Function Definitions *****/
 
 // Initialize the motor controller GPIO pins and PWM for step control.
@@ -27,6 +55,9 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     pwm_set_clkdiv(slice_num, 250.0f); // 125 MHz / 250 / 2000 = 250 Hz step rate
 
     pwm_set_counter(slice_num, top);
+
+    // Bind PWM Wrap interrupt to our static handler function
+    irq_set_exclusive_handler(PWM_IRQ_WRAP, pwm_wrap_isr);
     
     pwm_set_enabled(slice_num, true); // Enable the PWM slice
 

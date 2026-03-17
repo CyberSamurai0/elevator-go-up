@@ -16,11 +16,13 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "hardware/pwm.h"
+#include "hardware/irq.h"
 
 
 /***** Constant Definitions *****/
 #define MOTOR_STEPS_PER_REVOLUTION 200 // 1.8 degrees per step
 
+typedef void (*motor_complete_callback_t)(void);
 
 /***** Function Prototypes *****/
 
