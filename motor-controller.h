@@ -35,4 +35,7 @@ void set_motor_dir(uint8_t dir_pin, uint8_t clockwise);
 void spin_motor(uint8_t pul_pin);
 void stop_spin_motor(uint8_t pul_pin);
 
+// Non-blocking, invokes an ISR callback once steps are complete
+void rotate_motor(uint8_t pul_pin, uint32_t steps, motor_complete_callback_t on_complete);
+
 #endif //ELEVATOR_GO_UP_MOTOR_CONTROLLER_H

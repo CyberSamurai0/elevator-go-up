@@ -88,3 +88,16 @@ void stop_spin_motor(uint8_t pul_pin) {
 
     pwm_set_chan_level(slice_num, channel, 0);
 }
+
+void rotate_motor(uint8_t pul_pin, uint32_t steps, motor_complete_callback_t on_complete) {
+    uint slice_num = pwm_gpio_to_slice_num(pul_pin); // Get PWM slice number
+    uint channel = pwm_gpio_to_channel(pul_pin); // Get PWM channel
+
+    _pul_pin_irq = pul_pin;
+    _steps_remaining = steps;
+    _on_complete = on_complete;
+
+    pwm_set_irq_enabled(slice_num, true); // Enable interrupt on this slice
+    pwm_set_counter(slice_num, 1999u); // Force first wrap on next tick
+    pwm_set_chan_level(slice_num, channel, 1000u); // 50% duty cycle
+}
