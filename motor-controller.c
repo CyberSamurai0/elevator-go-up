@@ -52,7 +52,7 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
     uint16_t top = 1999; // Set PWM top value for resolution
     pwm_set_wrap(slice_num, top); // Set the PWM wrap value
     pwm_set_chan_level(slice_num, channel, 0); // Start with 0%
-    pwm_set_clkdiv(slice_num, 250.0f); // 125 MHz / 250 / 2000 = 250 Hz step rate
+    pwm_set_clkdiv(slice_num, 31.25f); // 125 MHz / 31.25 / top = 250 Hz step rate
 
     pwm_set_counter(slice_num, top);
 
