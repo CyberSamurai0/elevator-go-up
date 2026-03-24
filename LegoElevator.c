@@ -109,7 +109,7 @@ int main() {
         // Counterclockwise for one revolution
         set_motor_dir(MOTOR_DIR_PIN, 0);
         spin_motor(MOTOR_PUL_PIN);
-        printf("[TEST] Spin Clockwise for 1s\n");
+        printf("[TEST] Spin Counterclockwise for 1s\n");
         sleep_ms(1000);
 
         stop_spin_motor(MOTOR_PUL_PIN);
