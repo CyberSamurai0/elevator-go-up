@@ -96,14 +96,17 @@ int main() {
     // Print version info
     printf("===== Elevator System v%c.%c.%c =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
-
+    // Call main initializer function for elevator system
     printf("[INIT] Initializing elevator system\n");
-
     initElevatorSystem(MOTOR_ENA_PIN, MOTOR_DIR_PIN, MOTOR_PUL_PIN, 0b11111); // Enable five floors for testing
 
+    // If we've made it here, initialization was successful
     printf("[INIT] Initialization completed\n\n");
 
+
     #if MOTOR_UNIT_TEST
+    // Unit test for motor control functionality
+    // Tests enable pin, then direction and spinning functionality
     printf("[TEST] Testing motor operations\n\n");
 
     // Lock and unlock motor 3x
