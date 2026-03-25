@@ -1,3 +1,14 @@
+/*
+ * Lego Elevator Control System
+ * 
+ * This code implements the control system for a Lego elevator using a Raspberry Pi Pico W.
+ * It manages motor control, floor selection, and direction logic based on desired floors.
+ * 
+ * Author: Colin Saumure
+*/
+
+/***** Includes *****/
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
@@ -5,18 +16,29 @@
 
 #include "elevator.h"
 
+
+/***** Constant Definitions *****/
+
+// Semantic versioning for build tracking
 #define VERSION_MAJOR '0'
 #define VERSION_MINOR '1'
 #define VERSION_PATCH '5'
 
+// Configure motor control pins
 #define MOTOR_ENA_PIN 17
 #define MOTOR_DIR_PIN 18
 #define MOTOR_PUL_PIN 19
 
+// Set to 1 to enable debug mode, which waits for a USB serial connection before proceeding
 #define BOOT_DEBUG 1
 
+// Set to 1 to enable motor unit test, which tests motor enable pin and basic spinning functionality
 #define MOTOR_UNIT_TEST 1
 
+
+/***** Function Definitions *****/
+
+// Helper function to print a uint16_t value in binary format
 void print_uint16_binary(uint16_t value) {
     // Iterate from the most significant bit (15) down to the least significant bit (0)
     for (int i = 15; i >= 0; i--) {
