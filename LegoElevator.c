@@ -52,9 +52,12 @@ void print_uint16_binary(uint16_t value) {
     printf("\n"); // Print a newline character at the end
 }
 
+// Entrypoint function
 int main() {
+    // Initialize stdio for USB serial communication
     stdio_init_all();
 
+    // Demagnetize the motor during startup
     gpio_init(MOTOR_ENA_PIN);
     gpio_set_dir(MOTOR_ENA_PIN, 1);
     gpio_put(MOTOR_ENA_PIN, 1); // Disable motor initially
