@@ -1,5 +1,5 @@
-build
-!.vscode/*
-.DS_Store
+build/*
 !build/LegoElevator.hex
 !build/LegoElevator.uf2
+!.vscode/*
+.DS_Store
