@@ -22,7 +22,7 @@
 // Semantic versioning for build tracking
 #define VERSION_MAJOR '0'
 #define VERSION_MINOR '1'
-#define VERSION_PATCH '5'
+#define VERSION_PATCH '6'
 
 // Configure motor control pins
 #define MOTOR_ENA_PIN 17
@@ -35,6 +35,7 @@
 // Set to 1 to enable motor unit test, which tests motor enable pin and basic spinning functionality
 #define MOTOR_UNIT_TEST 1
 
+volatile uint8_t motor_complete = 0; // Flag to indicate motor operation completion, set by ISR callback
 
 /***** Function Definitions *****/
 
@@ -50,6 +51,10 @@ void print_uint16_binary(uint16_t value) {
         }
     }
     printf("\n"); // Print a newline character at the end
+}
+
+void motor_complete_callback(void) {
+    motor_complete = 1; // Set the flag to indicate motor operation is complete
 }
 
 // Entrypoint function
@@ -148,6 +153,17 @@ int main() {
     #endif
 
     while (true) {
+        // Start by checking for ISR flag
+        if (motor_complete) {
+            motor_complete = 0; // Acknowledge and reset the flag
+            current_floor = target_floor; // Update current floor to target floor
+            removeDesiredFloor(current_floor); // Clear the current floor from desired floors
+            direction &= 0b100; // Clear movement bit, preserve up/down direction
+
+            // TODO start linger timer
+
+            printf("Arrived at target floor %d\n", current_floor);
+        }
 
         // Print current state for debugging
         if (direction & 0b110) {
@@ -166,33 +182,63 @@ int main() {
         printf("\t\tDesired: ");
         print_uint16_binary(desired_floors);
 
-        // If we're not moving and we're on the desired floor, clear it
-        // Disallows pushing the button for the floor you're currently on
-        if (isFloorDesired(current_floor) && direction == 0) removeDesiredFloor(current_floor);
+        // TODO if lingering, continue to next iter until timer expires
+        // From there, pick next target floor based on direction and desired floors
 
+        // Check if we're physically moving or idle
+        // If idle
+        if (direction == 0) {
+            // If we're not moving and we're on the desired floor, clear it
+            // Disallows pushing the button for the floor you're currently on
+            if (isFloorDesired(current_floor) && direction == 0) removeDesiredFloor(current_floor);
+                
+            // Check if there are any desired floors
+            // If so, pick a direction and target floor
+            if (desired_floors != 0) {
+                // Check if there are desired floors above the current floor
+                // (1 << (current_floor + 1)) targets the bit above the current floor
+                // 1<<3 = 8 = 0b01000
+                // mask - 1 = 0b00111
+                // ~(mask - 1) = 0b11000, which gives us all floors above the current floor
+                if (desired_floors & (~((1 << (current_floor + 1)) - 1))) {
+                    // Desired floors exist above current floor
+                    direction = (direction & 0b100) | 0b010; // Set direction to up (010), preserve moving state
+                    printf("Setting direction to UP\n");
+                } else {
+                    // Desired floors exist only below current floor
+                    direction = (direction & 0b100) | 0b001; // Set direction to down (001), preserve moving state
+                    printf("Setting direction to DOWN\n");
+                }
+            }
+            // If not, stay idle and wait for button press
+            tight_loop_contents();
+        }
+
+        if (direction & 0b011 != 0 && direction & 0b100 == 0) {
+            // If we're supposed to be moving but we're not, start moving in the set direction
+            // TODO set target floor to next desired floor in the direction we're moving
+            // TODO start motor in the correct direction
+
+            rotate_motor(MOTOR_PUL_PIN, STEPS_BETWEEN_FLOORS, motor_complete_callback);
+            direction = direction | 0b100; // Set moving bit
+            printf("Starting motor");
+        }
+
+        // At this point, we're moving and we're supposed to be!
+
+        
+        /*
         if (desired_floors == 0) {
             // If no more desired floors, idle
-            if (direction != 0) {
+            if (direction & 0b011 != 0) {
                 printf("All floors served, idling\n");
                 direction = 0; // No desired floors, set to idle
+                target_floor = 0; // Clear target floor
             }
         } else if (direction == 0) {
             // If there are desired floors but we're idle, pick a direction
 
-            // Check if there are desired floors above the current floor
-            // (1 << (current_floor + 1)) targets the bit above the current floor
-            // 1<<3 = 8 = 0b01000
-            // mask - 1 = 0b00111
-            // ~(mask - 1) = 0b11000, which gives us all floors above the current floor
-            if (desired_floors & (~((1 << (current_floor + 1)) - 1))) {
-                // Desired floors exist above current floor
-                direction = (direction & 0b100) | 0b010; // Set direction to up (010), preserve moving state
-                printf("Setting direction to UP\n");
-            } else {
-                // Desired floors exist only below current floor
-                direction = (direction & 0b100) | 0b001; // Set direction to down (001), preserve moving state
-                printf("Setting direction to DOWN\n");
-            }
+            
         } else {
             // We are moving and we're supposed to be moving!
             
@@ -212,6 +258,7 @@ int main() {
             // If so, set new target floor
             // If not, set new direction
         // If no direction, pick one!
+        */
 
         sleep_ms(1000);
     }
