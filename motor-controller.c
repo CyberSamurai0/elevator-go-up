@@ -89,6 +89,7 @@ void stop_spin_motor(uint8_t pul_pin) {
     pwm_set_chan_level(slice_num, channel, 0);
 }
 
+// ISR-based non-blocking rotation function for specified number of steps
 void rotate_motor(uint8_t pul_pin, uint32_t steps, motor_complete_callback_t on_complete) {
     uint slice_num = pwm_gpio_to_slice_num(pul_pin); // Get PWM slice number
     uint channel = pwm_gpio_to_channel(pul_pin); // Get PWM channel

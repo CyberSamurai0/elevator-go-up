@@ -236,7 +236,7 @@ int main() {
 //          If at desired floor
 //              Stop motor, update current floor, remove from desired floors
 //              Linger at current floor for a while
-//              Pick next desired floor based on direction
+//              Pick next desired floor based on direction - preserve continuity!!
 //              If no more desired floors in current direction, set direction to idle (which will check opposite direction)
 //          If not at desired floor, continue moving in set direction
 //      Desired floors is a bitfield, but there should still be a single target floor at any time
