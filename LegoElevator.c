@@ -223,7 +223,7 @@ int main() {
             tight_loop_contents();
         }
 
-        if (direction & 0b011 != 0 && direction & 0b100 == 0) {
+        if ((direction & 0b011) != 0 && (direction & 0b100) == 0) {
             // If we're supposed to be moving but we're not, start moving in the set direction
             // TODO set target floor to next desired floor in the direction we're moving
             // TODO start motor in the correct direction
