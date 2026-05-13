@@ -123,5 +123,5 @@ uint8_t chooseTargetFloor(uint8_t direction) {
             }
         }
     }
-    return current_floor; // No desired floors in current direction, stay at current floor (should not happen if called correctly)
+    return current_floor; // No desired floors in current direction
 }

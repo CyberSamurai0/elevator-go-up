@@ -58,6 +58,7 @@ void init_motor(uint8_t ena_pin, uint8_t dir_pin, uint8_t pul_pin) {
 
     // Bind PWM Wrap interrupt to our static handler function
     irq_set_exclusive_handler(PWM_IRQ_WRAP, pwm_wrap_isr);
+    irq_set_enabled(PWM_IRQ_WRAP, true); // Enable the interrupt globally
     
     pwm_set_enabled(slice_num, true); // Enable the PWM slice
 

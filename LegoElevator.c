@@ -22,7 +22,7 @@
 // Semantic versioning for build tracking
 #define VERSION_MAJOR '0'
 #define VERSION_MINOR '1'
-#define VERSION_PATCH '7'
+#define VERSION_PATCH '8'
 
 // Configure motor control pins
 #define MOTOR_ENA_PIN 17
@@ -156,22 +156,48 @@ int main() {
     while (true) {
         // Start by checking for ISR flag
         if (motor_complete) {
+            printf("Motor done\n");
             motor_complete = 0; // Acknowledge and reset the flag
-            current_floor = target_floor; // Update current floor to target floor
-            removeDesiredFloor(current_floor); // Clear the current floor from desired floors
-            direction &= 0b100; // Clear movement bit, preserve up/down direction
+            
+            // TODO this is going to be choppy and cause brief stops at each floor
+            // Ideally we want to check if current is target floor in the ISR and only stop motor if we've arrived, otherwise just update current floor and keep going
+            
+            // Update current floor based on direction of movement
+            if (direction & 0b010) {
+                current_floor++;
+            } else if (direction & 0b001) {
+                current_floor--;
+            }
 
-            // TODO start linger timer
-            lingering = 1;
+            // Check if the current floor is target
+            if (current_floor == target_floor) {
+                // If we've reached the target floor, update state
+                removeDesiredFloor(current_floor); // Clear the current floor from desired floors
+                direction &= 0b100; // Clear movement bit, preserve up/down direction
 
-            printf("Arrived at target floor %d\n", current_floor);
+                // TODO start linger timer
+                lingering = 1;
+                direction &= 0b011; // Clear moving bit, preserve direction
+
+                printf("Reached target floor %d\n", current_floor);
+            } else {
+                // If not there yet, keep spinning
+                rotate_motor(MOTOR_PUL_PIN, STEPS_BETWEEN_FLOORS, motor_complete_callback);
+            }
         }
 
         if (lingering) {
             sleep_ms(3000);
             lingering = 0;
             printf("Linger complete\n");
-
+            target_floor = chooseTargetFloor(direction); // Pick next target floor based on current direction
+            if (target_floor == current_floor) {
+                // If there are no more desired floors in the current direction, set to idle to check opposite direction
+                direction = 0;
+                printf("No more floors in current direction\n");
+            } else {
+                printf("Next target floor: %d\n", target_floor);
+            }
         }
 
         // Print current state for debugging
@@ -191,6 +217,7 @@ int main() {
         printf("\t\tDesired: ");
         print_uint16_binary(desired_floors);
 
+
         // TODO if lingering, continue to next iter until timer expires
         // From there, pick next target floor based on direction and desired floors
 
@@ -205,9 +232,9 @@ int main() {
             // If so, pick a direction and target floor
             if (desired_floors != 0) {
                 direction = chooseDirection();
-                printf("Setting direction to %s\n", (direction & 0b010) ? "UP" : "DOWN");
+                printf("[SET] Dir = %s\n", (direction & 0b010) ? "UP" : "DOWN");
                 target_floor = chooseTargetFloor(direction);
-                printf("Setting target to F %d\n", target_floor);
+                printf("[SET] Target = F%d\n", target_floor);
             }
             // If not, stay idle and wait for button press
             tight_loop_contents();
@@ -220,7 +247,7 @@ int main() {
 
             rotate_motor(MOTOR_PUL_PIN, STEPS_BETWEEN_FLOORS, motor_complete_callback);
             direction = direction | 0b100; // Set moving bit
-            printf("Starting motor");
+            printf("[SET] Motor active\n");
         }
 
         // At this point, we're moving and we're supposed to be!
