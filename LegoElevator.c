@@ -36,6 +36,7 @@
 #define MOTOR_UNIT_TEST 1
 
 volatile uint8_t motor_complete = 0; // Flag to indicate motor operation completion, set by ISR callback
+volatile uint8_t lingering = 0; // Flag to indicate if we're currently lingering at a floor after arrival, used to delay before moving to next target floor
 
 /***** Function Definitions *****/
 
@@ -161,8 +162,16 @@ int main() {
             direction &= 0b100; // Clear movement bit, preserve up/down direction
 
             // TODO start linger timer
+            lingering = 1;
 
             printf("Arrived at target floor %d\n", current_floor);
+        }
+
+        if (lingering) {
+            sleep_ms(3000);
+            lingering = 0;
+            printf("Linger complete\n");
+
         }
 
         // Print current state for debugging
