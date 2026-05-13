@@ -36,7 +36,9 @@
 #define MOTOR_UNIT_TEST 1
 
 volatile uint8_t motor_complete = 0; // Flag to indicate motor operation completion, set by ISR callback
-volatile uint8_t lingering = 0; // Flag to indicate if we're currently lingering at a floor after arrival, used to delay before moving to next target floor
+volatile uint8_t lingering = 0; // Flag to indicate if we're currently lingering at a floor
+absolute_time_t linger_end_time; // Timestamp for when the linger period should end
+#define LINGER_MS 5000 // Linger time in milliseconds
 
 /***** Function Definitions *****/
 
@@ -178,6 +180,9 @@ int main() {
                 // TODO start linger timer
                 lingering = 1;
                 direction &= 0b011; // Clear moving bit, preserve direction
+
+                //lingering = 1;
+                //linger_end_time = make_timeout_time_ms(LINGER_MS);
 
                 printf("Reached target floor %d\n", current_floor);
             } else {
