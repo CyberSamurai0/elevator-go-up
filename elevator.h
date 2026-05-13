@@ -56,4 +56,7 @@ uint8_t isFloorDesired(uint8_t floor);
 
 void onFloorButtonPressed(uint gpio, uint32_t event_mask);
 
+uint8_t chooseDirection();
+uint8_t chooseTargetFloor(uint8_t direction);
+
 #endif //ELEVATOR_GO_UP_ELEVATOR_H

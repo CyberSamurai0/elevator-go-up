@@ -22,7 +22,7 @@
 // Semantic versioning for build tracking
 #define VERSION_MAJOR '0'
 #define VERSION_MINOR '1'
-#define VERSION_PATCH '6'
+#define VERSION_PATCH '7'
 
 // Configure motor control pins
 #define MOTOR_ENA_PIN 17
@@ -204,20 +204,10 @@ int main() {
             // Check if there are any desired floors
             // If so, pick a direction and target floor
             if (desired_floors != 0) {
-                // Check if there are desired floors above the current floor
-                // (1 << (current_floor + 1)) targets the bit above the current floor
-                // 1<<3 = 8 = 0b01000
-                // mask - 1 = 0b00111
-                // ~(mask - 1) = 0b11000, which gives us all floors above the current floor
-                if (desired_floors & (~((1 << (current_floor + 1)) - 1))) {
-                    // Desired floors exist above current floor
-                    direction = (direction & 0b100) | 0b010; // Set direction to up (010), preserve moving state
-                    printf("Setting direction to UP\n");
-                } else {
-                    // Desired floors exist only below current floor
-                    direction = (direction & 0b100) | 0b001; // Set direction to down (001), preserve moving state
-                    printf("Setting direction to DOWN\n");
-                }
+                direction = chooseDirection();
+                printf("Setting direction to %s\n", (direction & 0b010) ? "UP" : "DOWN");
+                target_floor = chooseTargetFloor(direction);
+                printf("Setting target to F %d\n", target_floor);
             }
             // If not, stay idle and wait for button press
             tight_loop_contents();

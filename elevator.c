@@ -19,6 +19,8 @@ void addDesiredFloor(uint8_t floor);
 void removeDesiredFloor(uint8_t floor);
 uint8_t isFloorDesired(uint8_t floor);
 void onFloorButtonPressed(uint gpio, uint32_t event_mask);
+uint8_t chooseDirection();
+uint8_t chooseTargetFloor(uint8_t direction);
 
 
 /***** Function Definitions *****/
@@ -89,4 +91,37 @@ void onFloorButtonPressed(uint gpio, uint32_t event_mask) {
     if (floor != (uint8_t)(-1)) {
         addDesiredFloor(floor);
     }
+}
+
+uint8_t chooseDirection() {
+    // Check if there are desired floors above the current floor
+    // (1 << (current_floor)) targets the bit above the current floor
+    // 1<<3 = 8 = 0b01000
+    // mask - 1 = 0b00111
+    // ~(mask - 1) = 0b11000, which gives us all floors above the current floor
+    uint16_t above_mask = ~((1 << (current_floor)) - 1);
+    if (desired_floors & above_mask) {
+        return 0b010; // UP
+    } else if (desired_floors != 0) {
+        return 0b001; // DOWN
+    } else return 0b000; // No desired floors, should not be used
+}
+
+uint8_t chooseTargetFloor(uint8_t direction) {
+    if (direction & 0b010) {
+        // If direction is up, find the closest desired floor above current floor
+        for (int8_t f = current_floor + 1; f <= 16; f++) {
+            if (isFloorDesired(f)) {
+                return f;
+            }
+        }
+    } else if (direction & 0b001) {
+        // If direction is down, find the closest desired floor below current floor
+        for (int8_t f = current_floor - 1; f >= 1; f--) {
+            if (isFloorDesired(f)) {
+                return f;
+            }
+        }
+    }
+    return current_floor; // No desired floors in current direction, stay at current floor (should not happen if called correctly)
 }
