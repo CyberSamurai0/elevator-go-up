@@ -22,7 +22,7 @@
 // Semantic versioning for build tracking
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_PATCH 8
+#define VERSION_PATCH 9
 
 // Configure motor control pins
 #define MOTOR_ENA_PIN 17
@@ -249,7 +249,7 @@ int main() {
             // If we're supposed to be moving but we're not, start moving in the set direction
             // TODO set target floor to next desired floor in the direction we're moving
             // TODO start motor in the correct direction
-
+            set_motor_dir(MOTOR_DIR_PIN, (direction & 0b010) ? 1 : 0);
             rotate_motor(MOTOR_PUL_PIN, STEPS_BETWEEN_FLOORS, motor_complete_callback);
             direction = direction | 0b100; // Set moving bit
             printf("[SET] Motor active\n");
