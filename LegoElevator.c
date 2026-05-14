@@ -20,9 +20,9 @@
 /***** Constant Definitions *****/
 
 // Semantic versioning for build tracking
-#define VERSION_MAJOR '0'
-#define VERSION_MINOR '1'
-#define VERSION_PATCH '8'
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 1
+#define VERSION_PATCH 8
 
 // Configure motor control pins
 #define MOTOR_ENA_PIN 17
@@ -102,7 +102,7 @@ int main() {
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 
     // Print version info
-    printf("===== Elevator System v%c.%c.%c =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    printf("===== Elevator System v%d.%d.%d =====\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
     // Call main initializer function for elevator system
     printf("[INIT] Initializing elevator system\n");
