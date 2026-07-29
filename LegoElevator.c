@@ -22,8 +22,8 @@
 
 // Semantic versioning for build tracking
 #define VERSION_MAJOR 0
-#define VERSION_MINOR 1
-#define VERSION_PATCH 9
+#define VERSION_MINOR 2
+#define VERSION_PATCH 1
 
 // Configure motor control pins
 #define MOTOR_ENA_PIN 17
