@@ -4,10 +4,10 @@
 /***** Variable Definitions *****/
 
 uint16_t enabled_floors;
-uint8_t current_floor;
-uint16_t desired_floors;
-uint8_t direction;
-uint8_t target_floor;
+volatile uint8_t current_floor;
+volatile uint16_t desired_floors;
+volatile uint8_t direction;
+volatile uint8_t target_floor;
 
 
 /***** Function Prototypes *****/
