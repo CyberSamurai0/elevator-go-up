@@ -33,7 +33,7 @@
 #define BOOT_DEBUG 1
 
 // Set to 1 to enable motor unit test, which tests motor enable pin and basic spinning functionality
-#define MOTOR_UNIT_TEST 1
+#define MOTOR_UNIT_TEST 0
 
 volatile uint8_t motor_complete = 0; // Flag to indicate motor operation completion, set by ISR callback
 volatile uint8_t lingering = 0; // Flag to indicate if we're currently lingering at a floor
