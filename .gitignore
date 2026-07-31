@@ -3,3 +3,4 @@ build/*
 !build/LegoElevator.uf2
 !.vscode/*
 .DS_Store
+schematic/.history/
