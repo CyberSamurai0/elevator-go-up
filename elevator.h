@@ -17,7 +17,7 @@
 
 
 /***** Constant Definitions *****/
-#define STEPS_BETWEEN_FLOORS 3200 // Number of motor steps between floors
+#define STEPS_BETWEEN_FLOORS 1600 // Number of motor steps between floors
 
 /***** Variable Declarations *****/
 
